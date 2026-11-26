@@ -169,7 +169,7 @@ td.n{white-space:nowrap}
           <li><b>Reception wall.</b> On the drawing the wall behind the desk is 2.4 m wide between the corner and the column. Nesphere's render shows a much wider wall, with their logo on it and windows beside it. One of the two is out of date.</li>
           <li><b>Lounge glazing</b> on the west side is read from the thin double line on the drawing. The north wall is modelled solid.</li>
           <li><b>Not modelled:</b> the 1/F admin office, the hatched non-scope areas, the stairs, back-of-house rooms and the insides of the bathrooms.</li>
-          <li><b>Screens</b> are real products: Samsung The Frame in its seven sizes (32 to 85 in) and the Netgear Meural Canvas II (21.5 and 27 in), a smaller canvas made for digital art. Sizes are the makers' published outer dimensions and need checking against the current Hong Kong sheets before anything is issued. Hisense CanvasTV and TCL NXTFRAME come in the same 55, 65 and 75 in sizes and are not listed until their dimensions are confirmed.</li>
+          <li><b>Screens</b> are real products: Samsung The Frame in its seven sizes (32 to 85 in) and the Netgear Meural Canvas II (21.5 and 27 in), a smaller canvas made for digital art. Sizes were checked on 2026-11-26 against published listings. Two are not from the exact current model: the 75 in figure is the 2025 Frame Pro and the 85 in figure is the 2024 model, so confirm those two, and the Hong Kong model codes, before first fix. Hisense CanvasTV and TCL NXTFRAME come in the same 55, 65 and 75 in sizes and are not listed until their dimensions are confirmed.</li>
           <li><b>Apartment tower.</b> 5/F, 6/F to 8/F and 9/F to 16/F are each one typical floor: a placement there applies to every floor in that group. Apartments are open to walk; bathrooms and kitchens are closed blocks. Ceiling height is assumed at 2.5 m.</li>
           <li><b>Finishes</b> follow the renders: forest green and deep red plaster, pale terrazzo. Artwork images are stand-ins until the inventory is chosen.</li>
         </ul>
@@ -1444,8 +1444,10 @@ function lvOf(w){return LV[w.level]||LV['1F'];}
 function withLv(w,fn){var k=cur;cur=lvOf(w);try{return fn();}finally{cur=k;}}
 function fixLevel(w){if(!LV[w.level]){var m=/^([0-9]{1,2}F|RF)-/.exec(w.id);w.level=m?m[1]:'1F';}return w;}
 var TYPE_LABEL={screen:'Screen',painting:'Painting',drawing:'Drawing',tapestry:'Tapestry',sculpture:'Sculpture'};
-// Art-display screens. Outer size W x H x D in mm without stand, from the makers' published figures (to be checked against the Hong Kong sheets).
-var SCREENS={'32':['Samsung The Frame 32 in',729,420,25],'43':['Samsung The Frame 43 in',969,555,25],'50':['Samsung The Frame 50 in',1124,644,25],'55':['Samsung The Frame 55 in',1238,708,25],'65':['Samsung The Frame 65 in',1457,832,25],'75':['Samsung The Frame 75 in',1676,957,25],'85':['Samsung The Frame 85 in',1900,1086,27],'M21':['Netgear Meural Canvas II 21.5 in',610,406,40],'M27':['Netgear Meural Canvas II 27 in',737,483,40]};
+// Art-display screens. Outer size W x H x D in mm without stand. Checked 2026-11-26 against published listings:
+// 43 to 65 in from the 2025 LS03F, 32 in from the 2023 LS03C (current 32 in model), 75 in from the 2025 Frame Pro LS03FW
+// (no plain LS03F 75 in figure found), 85 in from Samsung's 2024 LS03D dimension sheet, Meural from Netgear's datasheet.
+var SCREENS={'32':['Samsung The Frame 32 in',727,427,26],'43':['Samsung The Frame 43 in',970,558,25],'50':['Samsung The Frame 50 in',1124,645,25],'55':['Samsung The Frame 55 in',1238,709,25],'65':['Samsung The Frame 65 in',1457,832,25],'75':['Samsung The Frame 75 in',1687,965,28],'85':['Samsung The Frame 85 in',1910,1091,29],'M21':['Netgear Meural Canvas II 21.5 in',617,414,36],'M27':['Netgear Meural Canvas II 27 in',734,472,36]};
 function screenOf(w){return SCREENS[String(w.preset)]||SCREENS['55'];}
 function frameSize(preset,orient){var m=SCREENS[String(preset)]||SCREENS['55'];return orient==='portrait'?[m[2],m[1]]:[m[1],m[2]];}
 Object.keys(SCREENS).sort(function(a,b){return SCREENS[a][1]-SCREENS[b][1];}).forEach(function(k){var o=document.createElement('option');o.value=k;o.textContent=SCREENS[k][0]+' ('+SCREENS[k][1]+' x '+SCREENS[k][2]+' mm)';$('fPreset').appendChild(o);});
